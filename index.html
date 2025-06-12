@@ -159,7 +159,7 @@
 
       const increment = basicPay * (percentage / 100);
       const totalPay = basicPay + increment;
-
+         document.getElementById("netPayResult").textContent = `Your net pay after increment is “without allowances”: ${totalPay.toFixed(2)}`;
       document.getElementById("incrementResult").textContent = `Your total increment is: ${increment.toFixed(2)}`;
       
     }
