@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Increment Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #1e1e2f;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .typewriter {
+      font-size: 1.2rem;
+      color: #00ffc8;
+      margin-bottom: 1rem;
+      height: 1.5rem;
+      text-align: center;
+    }
+
+    .calculator {
+      background: #2e2e3e;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0, 255, 200, 0.5);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #00ffc8;
+      font-size: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #444;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #00ffc8;
+      color: #1e1e2f;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #00d0a0;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #fffb00;
+    }
+
+    @media (max-width: 480px) {
+      .calculator {
+        padding: 1.2rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      .typewriter {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="typewriter" id="typewriter"></div>
+  <div class="calculator">
+    <h2>Increment Calculator</h2>
+    <label for="percentage">Enter percentage of increment:</label>
+    <input type="number" id="percentage" placeholder="e.g., 40">
+
+    <label for="basicPay">Enter your basic pay:</label>
+    <input type="number" id="basicPay" placeholder="e.g., 50000">
+
+    <button onclick="calculateIncrement()">Calculate</button>
+
+    <div class="result" id="incrementResult"></div>
+    <div class="result" id="netPayResult"></div>
+  </div>
+
+  <script>
+    // Typewriter Effect
+    const text = "Built by M.Osama";
+    const typewriter = document.getElementById("typewriter");
+    let index = 0;
+    let deleting = false;
+
+    function animateText() {
+      if (!deleting && index <= text.length) {
+        typewriter.textContent = text.substring(0, index++);
+      } else if (deleting && index >= 0) {
+        typewriter.textContent = text.substring(0, index--);
+      }
+
+      if (index === text.length + 1) {
+        deleting = true;
+        setTimeout(animateText, 1000);
+        return;
+      } else if (index === 0 && deleting) {
+        deleting = false;
+        setTimeout(animateText, 500);
+        return;
+      }
+      setTimeout(animateText, 120);
+    }
+    animateText();
+
+    // Calculator Logic
+    function calculateIncrement() {
+      const percentage = parseFloat(document.getElementById("percentage").value);
+      const basicPay = parseFloat(document.getElementById("basicPay").value);
+
+      if (isNaN(percentage) || isNaN(basicPay) || percentage < 0 || basicPay <= 0) {
+        document.getElementById("incrementResult").textContent = "Please enter valid increment % and basic pay.";
+        document.getElementById("netPayResult").textContent = "";
+        return;
+      }
+
+      const increment = basicPay * (percentage / 100);
+      const totalPay = basicPay + increment;
+
+      document.getElementById("incrementResult").textContent = `Your total increment is: ${increment.toFixed(2)}`;
+      
+    }
+  </script>
+</body>
+</html>
